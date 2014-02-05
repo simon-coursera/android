@@ -25,12 +25,12 @@ public class ActivityTwo extends Activity {
 	// onResume(), called mCreate, etc.
 	// You will need to increment these variables' values when their
 	// corresponding lifecycle methods get called
-
+	private int mCreate, mStart, mResume, mRestart;
 
 
 	// TODO: Create variables for each of the TextViews, called
         // mTvCreate, etc. 
-
+	private TextView mTvCreate, mTvStart, mTvResume, mTvRestart;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +40,10 @@ public class ActivityTwo extends Activity {
 		// TODO: Assign the appropriate TextViews to the TextView variables
 		// Hint: Access the TextView by calling Activity's findViewById()
 		// textView1 = (TextView) findViewById(R.id.textView1);
-
-
-
+		mTvCreate  = (TextView) findViewById(R.id.create);
+		mTvStart = (TextView) findViewById(R.id.start);
+	    mTvResume = (TextView) findViewById(R.id.resume);
+	    mTvRestart = (TextView) findViewById(R.id.restart);
 
 
 		Button closeButton = (Button) findViewById(R.id.bClose); 
@@ -54,9 +55,7 @@ public class ActivityTwo extends Activity {
 				// TODO:
 				// This function closes Activity Two
 				// Hint: use Context's finish() method
-
-
-			
+				finish();
 			}
 		});
 
@@ -66,22 +65,23 @@ public class ActivityTwo extends Activity {
 			// TODO:
 			// Restore value of counters from saved state
 			// Only need 4 lines of code, one for every count variable
-
+			mCreate = savedInstanceState.getInt(CREATE_KEY);
+			mStart = savedInstanceState.getInt(START_KEY);
+			mResume = savedInstanceState.getInt(RESUME_KEY);
+			mRestart = savedInstanceState.getInt(RESTART_KEY);		
 
 
 		}
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG, "The activity is about to be created.");
 
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface via the displayCounts() method
-
-
-
-
+		mCreate++;
+		displayCounts();
 	}
 
 	// Lifecycle callback methods overrides
@@ -91,14 +91,13 @@ public class ActivityTwo extends Activity {
 		super.onStart();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG, "The activity is visible and about to be started.");
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface
-
-
-
+		mStart++;
+		displayCounts();
 	}
 
 	@Override
@@ -106,15 +105,13 @@ public class ActivityTwo extends Activity {
 		super.onResume();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG, "The activity is and has focus (it is now \"resumed\")");
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface
-
-
-
-
+		mResume++;
+		displayCounts();
 	}
 
 	@Override
@@ -122,9 +119,7 @@ public class ActivityTwo extends Activity {
 		super.onPause();
 
 		// TODO: Emit LogCat message
-
-
-
+		Log.i(TAG, "Another activity is taking focus (this activity is about to be \"paused\")");
 	}
 
 	@Override
@@ -132,9 +127,7 @@ public class ActivityTwo extends Activity {
 		super.onStop();
 
 		// TODO: Emit LogCat message
-
-
-
+		Log.i(TAG, "The activity is no longer visible (it is now \"stopped\")");
 	}
 
 	@Override
@@ -142,14 +135,13 @@ public class ActivityTwo extends Activity {
 		super.onRestart();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG, "The activity is visible and about to be restarted.");
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface
-
-
-
+		mRestart++;
+		displayCounts();
 	}
 
 	@Override
@@ -157,7 +149,7 @@ public class ActivityTwo extends Activity {
 		super.onDestroy();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG, "The activity is about to be destroyed.");
 	}
 
 	@Override
@@ -166,12 +158,10 @@ public class ActivityTwo extends Activity {
 		// TODO:
 		// Save counter state information with a collection of key-value pairs
 		// 4 lines of code, one for every count variable
-
-
-
-
-
-	
+		savedInstanceState.putInt(CREATE_KEY, mCreate);
+		savedInstanceState.putInt(START_KEY, mStart);
+		savedInstanceState.putInt(RESUME_KEY, mResume);
+		savedInstanceState.putInt(RESTART_KEY, mRestart);
 	}
 
 	// Updates the displayed counters
