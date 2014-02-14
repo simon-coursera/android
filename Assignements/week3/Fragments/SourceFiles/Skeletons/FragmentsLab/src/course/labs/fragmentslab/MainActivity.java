@@ -2,6 +2,7 @@ package course.labs.fragmentslab;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -26,10 +27,11 @@ public class MainActivity extends Activity implements
 			mFriendsFragment = new FriendsFragment();
 
 			//TODO 1 - add the FriendsFragment to the fragment_container
-			
-			
-			
-
+			FragmentManager fragmentManager = getFragmentManager();
+			FragmentTransaction fragmentTransaction = fragmentManager
+					.beginTransaction();
+			fragmentTransaction.add(R.id.fragment_container, mFriendsFragment);
+			fragmentTransaction.commit();
 		} else {
 
 			// Otherwise, save a reference to the FeedFragment for later use
@@ -65,7 +67,11 @@ public class MainActivity extends Activity implements
 		if (!isInTwoPaneMode()) {
 
 			//TODO 2 - replace the fragment_container with the FeedFragment
-			
+			FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+			transaction.replace(R.id.fragment_container, mFeedFragment);
+			transaction.addToBackStack(null);
+			transaction.commit();
 
 			
 
