@@ -94,10 +94,7 @@ public class PlaceDownloaderTask extends AsyncTask<Location, Void, PlaceRecord> 
 
 	@Override
 	protected void onPostExecute(PlaceRecord result) {
-
-		if (null != result && null != mParent.get()) {
-			mParent.get().addNewPlace(result);
-		}
+		if(null != mParent.get()) mParent.get().addNewPlace(result);
 	}
 
 	private PlaceRecord getPlaceFromURL(String... params) {

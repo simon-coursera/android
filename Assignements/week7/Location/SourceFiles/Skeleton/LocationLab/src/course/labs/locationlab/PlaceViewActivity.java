@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import android.app.ListActivity;
 import android.content.Context;
-import android.content.Intent;
+//import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -15,7 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ListView;
+//import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +24,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 
 	private static String TAG = "Lab-Location";
 
-	private Location mLastLocationReading, mDisplayLocation;
+	private Location mLastLocationReading;
 	private PlaceViewAdapter mAdapter;
 
 	// default minimum time between new readings
@@ -39,6 +39,8 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 	private MockLocationProvider mMockLocationProvider;
 	
 	private TextView footerView;
+	
+	private PlaceViewActivity selfActivity = this;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 		footerView = (TextView)getLayoutInflater().inflate(R.layout.footer_view, null);
 		getListView().addFooterView(footerView);
 		
-		//footerView.setVisibility(View.GONE);
+		footerView.setVisibility(View.GONE);
         // TODO - When the footerView's onClick() method is called, it must issue the
         // following log call
         // log("Entered footerView.OnClickListener.onClick()");
@@ -66,16 +68,14 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 				log("Entered footerView.OnClickListener.onClick()");
 				
 				if(mLastLocationReading == null) log("Location data is not available");
-				else if(mLastLocationReading == mDisplayLocation) {
+				else if(mAdapter.intersects(mLastLocationReading)){
 					Toast.makeText(getApplicationContext(), "You already have this location badge!", Toast.LENGTH_LONG).show();
 					log("You already have this location badge");
 				} else {
-					//PlaceDownloaderTask task = new PlaceDownloaderTask(this);
-					mDisplayLocation = mLastLocationReading;
+					footerView.setVisibility(View.GONE);
+					new PlaceDownloaderTask(selfActivity).execute(mLastLocationReading);
 					log("Starting Place Download");
 				}
-				
-				
 			}
 		});
 		
@@ -115,8 +115,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 		
 		if(last != null && age(last) <= FIVE_MINS) {
 			mLastLocationReading = last;
-			//footerView.setVisibility(View.VISIBLE);
-			//setupFooterview();
+			footerView.setVisibility(View.VISIBLE);
 		}
 		else mLastLocationReading = null;		
 		
@@ -141,10 +140,12 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 
 	// Callback method used by PlaceDownloaderTask
 	public void addNewPlace(PlaceRecord place) {
+		if(place != null) {
+			log("Entered addNewPlace()");
+			mAdapter.add(place);			
+		}
 
-		log("Entered addNewPlace()");
-		mAdapter.add(place);
-
+		footerView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -159,8 +160,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
         // current location.
 		if(mLastLocationReading == null) {
 			mLastLocationReading = currentLocation;
-			//footerView.setVisibility(View.VISIBLE);
-			//setupFooterview();
+			footerView.setVisibility(View.VISIBLE);
 		} else if(currentLocation.getTime() > mLastLocationReading.getTime()) {
 			mLastLocationReading = currentLocation;
 		}
