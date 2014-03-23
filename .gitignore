@@ -31,3 +31,7 @@ proguard/
 #Mac files
 .DS_Store
 .metadata/
+
+
+#project files
+.settings/
