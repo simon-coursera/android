@@ -43,7 +43,7 @@ public class TestSameLocation extends ActivityInstrumentationTestCase2<PlaceView
 		// Click on Get New Place
 		solo.clickOnView(solo.getView(course.labs.contentproviderlab.R.id.footer));
 		
-		solo.sleep(2000);
+		solo.sleep(10000);
 
 		// Click on action bar item
 		solo.clickOnActionBarItem(course.labs.contentproviderlab.R.id.place_one);
@@ -53,7 +53,7 @@ public class TestSameLocation extends ActivityInstrumentationTestCase2<PlaceView
 		// Click on Get New Place
 		solo.clickOnView(solo.getView(course.labs.contentproviderlab.R.id.footer));
 		
-		solo.sleep(5000);
+		solo.sleep(10000);
 		
 		// Click on action bar item
 		solo.clickOnActionBarItem(course.labs.contentproviderlab.R.id.print_badges);

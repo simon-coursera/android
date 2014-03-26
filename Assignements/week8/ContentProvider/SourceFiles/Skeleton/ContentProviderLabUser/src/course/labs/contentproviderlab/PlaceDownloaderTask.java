@@ -9,6 +9,7 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,7 +35,7 @@ public class PlaceDownloaderTask extends AsyncTask<Location, Void, PlaceRecord> 
 	private static final boolean HAS_NETWORK = true;
 
 	// TODO - put your www.geonames.org account name here.
-	private static String USERNAME = "YOUR_USER_NAME";
+	private static String USERNAME = "geesimon";
 
 	private HttpURLConnection mHttpUrl;
 	private WeakReference<PlaceViewActivity> mParent;
@@ -94,10 +95,7 @@ public class PlaceDownloaderTask extends AsyncTask<Location, Void, PlaceRecord> 
 
 	@Override
 	protected void onPostExecute(PlaceRecord result) {
-
-		if (null != result && null != mParent.get()) {
-			mParent.get().addNewPlace(result);
-		}
+		if(null != mParent.get()) mParent.get().addNewPlace(result);
 	}
 
 	private PlaceRecord getPlaceFromURL(String... params) {
@@ -207,8 +205,8 @@ public class PlaceDownloaderTask extends AsyncTask<Location, Void, PlaceRecord> 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		return new PlaceRecord(generateFlagURL(countryCode.toLowerCase()),
+		
+		return new PlaceRecord(generateFlagURL(countryCode.toLowerCase(Locale.US)),
 				null, countryName, placeName, -1, -1);
 	}
 
