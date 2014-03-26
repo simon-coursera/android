@@ -62,8 +62,9 @@ public class PlaceViewActivity extends ListActivity implements
 
         // TODO - add a footerView to the ListView
         // You can use footer_view.xml to define the footer
-		getListView().setFooterDividersEnabled(true);
+		//getListView().setFooterDividersEnabled(true);
 		footerView = (TextView)getLayoutInflater().inflate(R.layout.footer_view, null);
+
 		getListView().addFooterView(footerView);
 		
 		//footerView.setVisibility(View.GONE);
@@ -155,6 +156,7 @@ public class PlaceViewActivity extends ListActivity implements
 		
 		super.onPause();
 	}
+	
 
 	public void addNewPlace(PlaceRecord place) {
 		
@@ -283,14 +285,7 @@ public class PlaceViewActivity extends ListActivity implements
 	private boolean shouldHandleClick = false;
 	private void handleClick(boolean value) {
 		shouldHandleClick = value;
-		/*
-		footerView.post(new Runnable() {
-			@Override
-			public void run() {
-				if(visible) footerView.setVisibility(View.VISIBLE);
-				else footerView.setVisibility(View.GONE);
-			}
-		});
-		*/
+		if(value) footerView.setText(R.string.footer_text);
+		else footerView.setText("Locating...");
 	}
 }
