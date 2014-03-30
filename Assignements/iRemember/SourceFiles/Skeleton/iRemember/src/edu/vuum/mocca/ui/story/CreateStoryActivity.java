@@ -264,6 +264,7 @@ public class CreateStoryActivity extends StoryActivityBase {
 		// TODO - Add the filename to the Intent as an extra. Use the Intent-extra name
 		// from the MediaStore class, EXTRA_OUTPUT
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+		fragment.imagePath = fileUri;
 		
 		// TODO - Start a new activity for result, using the new intent and the request
 		// code CAMERA_PIC_REQUEST
