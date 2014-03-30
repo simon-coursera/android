@@ -313,7 +313,8 @@ public class CreateStoryFragment extends Fragment {
 		if (requestCode == CreateStoryActivity.CAMERA_PIC_REQUEST) {
 			if (resultCode == CreateStoryActivity.RESULT_OK) {
 				// Image captured and saved to fileUri specified in the Intent
-				imagePathFinal = imagePath;
+				//imagePathFinal = imagePath;
+				imagePathFinal = data.getData();
 				imageLocation.setText(imagePathFinal.toString());
 			} else if (resultCode == CreateStoryActivity.RESULT_CANCELED) {
 				// User cancelled the image capture
