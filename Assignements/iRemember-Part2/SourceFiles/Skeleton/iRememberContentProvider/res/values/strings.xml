@@ -3,7 +3,7 @@
 <resources>
 
     <!-- ************** Application-wide Strings ************* -->
-    <string name="app_name">MOOC-CP</string>
+    <string name="app_name">MOOC-CP-By-Simon</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">edu.vanderbilt</string>
     <string name="authority">edu.vanderbilt.mooc.moocprovider</string>

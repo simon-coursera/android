@@ -145,8 +145,12 @@ public class MoocProvider extends ContentProvider {
             final String[] selectionArgs, final String sortOrder) {
 
         // TODO: Perform a query on the database with the given parameters
+    	//Log.d(LOG_TAG, "URI:" + uri.toString());
+    	//Log.d(LOG_TAG, "TABLE:" + tableName);
+
+    	return mDB.query(tableName, projection, selection, selectionArgs, sortOrder);
     	
-    	return null;
+    	//return null;
     }
 
     @Override
